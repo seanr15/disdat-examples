@@ -1,3 +1,0 @@
-disdat
-jupyter
-pandas
