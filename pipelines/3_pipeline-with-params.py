@@ -15,7 +15,7 @@ class PipeWithParams(PipeTask):
 
     def pipe_run(self):
         print('-------------------')
-        print('pipe_with_params is Running!')
+        print("pipe_with_params n:{} is Running!".format(self.n))
         print('-------------------')
         print()
 

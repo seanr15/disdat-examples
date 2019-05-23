@@ -26,4 +26,4 @@ class ReturnTargets(PipeTask):
         return {'df': [target]}
 
 if __name__ == '__main__':
-    api.apply(data_context, 'ReturnTargets', params={'n': 10})
+    api.apply(data_context, 'ReturnTargets')
