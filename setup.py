@@ -12,5 +12,11 @@ setup(
         'disdat',
         'jupyter',
         'pandas'
-    ]
+    ],
+
+    extras_require={
+        'dev':  [
+            'tox'
+        ],
+    }
 )
