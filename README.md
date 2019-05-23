@@ -1,7 +1,6 @@
 # disdat-examples
 1. Install dependencies
 ```commandline
-pip install disdat
 pip install -e .
 ```
 2. Initialize disdat
