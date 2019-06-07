@@ -30,14 +30,14 @@ dsdt dockerize .
 ```
 3. Now run the dockerized version of the pipeline.
 ```
-dsdt run --no-push --no-pull -f . pipelines.4_return-targets.ReturnTargets
+dsdt run -f . pipelines.4_return-targets.ReturnTargets
 dsdt ls -v return_targets
 NAME                	PROC_NAME           	OWNER   	DATE              	COMMITTED	UUID                                    	TAGS
 return_targets      	ReturnTargets____ca7a191361	root    	06-04-19 20:17:26 	False   	96abb085-bbdd-48b6-917d-d51d2c8ac744
 return_targets      	ReturnTargets____ca7a191361	kyocum  	06-04-19 20:13:34 	False   	bef67232-86b6-4847-a2db-bf55eadc674b
 ```
 
-Notice that the run command did a few extra things.  Specifically, `no-push` prevents the pipeline from pushing bundles to the s3 remote of your local context, `no-pull` prevents the pipeline from initially synchronizing with the remote, and `-f` forces the entire pipeline to re-run.    
+Notice that the run command required us to specify the directory of the setup.py (like `dsdt dockerize`) and we added `-f` to force the entire pipeline to re-run.    
 
 
 
