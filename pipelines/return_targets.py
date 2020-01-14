@@ -23,7 +23,8 @@ class ReturnTargets(PipeTask):
         with target.temporary_path() as temp_output_path:
             df.to_csv(temp_output_path)
 
-        return {'df': [target]}
+        return target
+
 
 if __name__ == '__main__':
     api.apply(data_context, 'ReturnTargets')
