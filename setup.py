@@ -9,7 +9,7 @@ setup(
     include_package_data=True,
 
     install_requires=[
-        'disdat>=0.8.3rc1',
+        'disdat>=0.8.16',
         'jupyter',
         'pandas'
     ]
