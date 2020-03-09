@@ -9,8 +9,10 @@ setup(
     include_package_data=True,
 
     install_requires=[
-        'disdat>=0.8.16',
+        'disdat>=0.8.18',
+        'pandas==0.25.3',
         'jupyter',
-        'pandas'
+        'spacy',
+        'tensorflow==1.14.0'
     ]
 )
