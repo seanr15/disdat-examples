@@ -52,7 +52,7 @@ Here we create a ``example-context`` data context (the same used in the above ex
     $ dsdt context example-context
     $ dsdt switch example-context
 
-###Example: MNIST
+### Example: MNIST
 
 We've shamelessly adapted the Tensorflow example [here](https://www.tensorflow.org/get_started/mnist/pros).  Here we've
 broken the example down into three steps in `mnist.py <pipelines/mnist.py>`_, which you will see as three classes:
@@ -96,7 +96,7 @@ values.
     $ dsdt cat MNIST.eval
     0.9187
 
-###Example: Spacy
+### Example: Spacy
 
 The Spacy example illustrates how you might include additional packages or data inside your Disdat container.  In this case
 we have created a `MANIFEST.in` file which tells setuptools to include the data in `pipelines/en_core_web`.  
