@@ -9,7 +9,7 @@ setup(
     include_package_data=True,
 
     install_requires=[
-        'disdat>=0.8.18',
+        'disdat>=0.9.0',
         'pandas==0.25.3',
         'jupyter',
         'spacy',
