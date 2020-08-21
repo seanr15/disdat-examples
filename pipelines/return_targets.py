@@ -27,4 +27,4 @@ class ReturnTargets(PipeTask):
 
 
 if __name__ == '__main__':
-    api.apply(data_context, 'ReturnTargets')
+    api.apply(data_context, ReturnTargets)

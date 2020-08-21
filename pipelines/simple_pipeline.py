@@ -16,5 +16,6 @@ class SimplePipeline(PipeTask):
 
         return 2
 
+
 if __name__ == '__main__':
-    api.apply(data_context, 'SimplePipeline')
+    api.apply(data_context, SimplePipeline)

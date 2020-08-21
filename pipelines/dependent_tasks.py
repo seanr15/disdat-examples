@@ -33,4 +33,4 @@ class B(PipeTask):
 
 
 if __name__ == '__main__':
-    api.apply(data_context, 'B')
+    api.apply(data_context, B)
