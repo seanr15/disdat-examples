@@ -21,7 +21,8 @@ class PipeWithParams(PipeTask):
 
         return self.n
 
-if __name__ == '__main__':
-    api.apply(data_context, 'PipeWithParams', params={'n': 10})
 
-    api.apply(data_context, 'PipeWithParams', params={'n': 20})
+if __name__ == '__main__':
+    api.apply(data_context, PipeWithParams, params={'n': 10})
+
+    api.apply(data_context, PipeWithParams, params={'n': 20})
