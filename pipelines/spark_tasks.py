@@ -1,5 +1,6 @@
 import disdat.api as api
 from disdat.pipe import PipeTask
+from disdat.utility import aws_s3
 from pyspark.sql import SparkSession
 from pyspark import SparkConf
 import luigi
@@ -54,13 +55,15 @@ def spark_line_count(spark, src_s3a_files, dst_dir):
         data.append([numAs, numBs])
     df = spark.createDataFrame(data)
     df.write.format("parquet").save(dst_dir)
-    return dst_dir
+    files = aws_s3.ls_s3_url_keys(dst_dir.replace("s3a://","s3://",1))
+    print(files)
+    return files
 
 
 class RunSparkJob(PipeTask):
     spark_master = luigi.Parameter(default=None)
     app_name = luigi.Parameter(default="DisdatSparkJob")
-    input_bundle_name = luigi.Parameter(default='textfile')
+    input_bundle_name = luigi.Parameter(default='s3_files')
 
     def pipe_requires(self):
         self.set_bundle_name('DisdatSparkJob')
@@ -78,14 +81,19 @@ class RunSparkJob(PipeTask):
 
         spark = get_spark_session(self.spark_master, self.app_name)
 
-        output_dir = spark_line_count(spark,
-                                      s3a_files,
-                                      os.path.join(self.get_output_dir(), 'job_output'))
+        output_dir = os.path.join(self.create_remote_output_dir('job_output')).replace('s3://', 's3a://', 1)
 
+        output_files = spark_line_count(spark,
+                                        s3a_files,
+                                        output_dir)
+
+        bucket, _ = aws_s3.split_s3_url(self.get_remote_output_dir())
+
+        output_files = [os.path.join("s3://", os.path.join(bucket, f)) for f in output_files]
 
         spark.stop()
 
-        return [output_dir]
+        return output_files
 
 
 if __name__ == '__main__':
