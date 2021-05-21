@@ -14,6 +14,6 @@ setup(
         , 'pyspark'
         , 'jupyter'
         , 'spacy'
-        , 'tensorflow==1.14.0'
+        , 'tensorflow==2.5.0'
     ]
 )
