@@ -54,47 +54,40 @@ Here we create a ``example-context`` data context (the same used in the above ex
 
 ### Example: MNIST
 
-We've shamelessly adapted the Tensorflow example [here](https://www.tensorflow.org/get_started/mnist/pros).  Here we've
+We've adapted the Tensorflow Keras example [here](https://www.tensorflow.org/datasets/keras_example).  Here we've
 broken the example down into three steps in `mnist.py <pipelines/mnist.py>`_, which you will see as three classes:
 
-* ``GetDataGz``: This downloads four gzip files and stores them in a bundle called ``MNIST.data.gz``
+* ``GetTFDS``: This downloads the mnist tfds and stores the files in a bundle named for the tfds ``mnist``
 
-* ``Train``: This PipeTask depends on the ``GetDataGz`` tasks, gets the gzip files, builds a Tensorflow graph and trains it.  It stores the saved model into an output bundle called ``MNIST.trained``.
+* ``Train``: This PipeTask depends on the ``GetTFDS`` tasks and trains a simple Keras NN using it.  It stores the saved model into an output bundle called ``mnist-trained``.
 
-* ``Evaluate``: This PipeTask depends on both upstream tasks.  It rebuilds the graph, restores the values, and evaluates the model.  It returns a single accuracy float in it's output bundle ``MNIST.eval``
+* ``Evaluate``: This PipeTask depends on both upstream tasks.  It restores the model, and evaluates it.  It returns a loss and accuracy in its output bundle ``mnist-evaluation``
 
 To run all three steps, tell the Disdat CLI to execute the last step:
 
     $ dsdt apply pipelines.mnist.Evaluate
-    Successfully downloaded train-images-idx3-ubyte.gz 9912422 bytes.
-    Successfully downloaded train-labels-idx1-ubyte.gz 28881 bytes.
-    Successfully downloaded t10k-images-idx3-ubyte.gz 1648877 bytes.
-    Successfully downloaded t10k-labels-idx1-ubyte.gz 4542 bytes.
-    Beginning training . . .
-    Extracting file:///Users/kyocum/.disdat/context/examples/objects/fcc264dc-d21b-41f3-81e2-8ee60a527f53/train-images-idx3-ubyte.gz
-    Extracting file:///Users/kyocum/.disdat/context/examples/objects/fcc264dc-d21b-41f3-81e2-8ee60a527f53/train-labels-idx1-ubyte.gz
-    Extracting file:///Users/kyocum/.disdat/context/examples/objects/fcc264dc-d21b-41f3-81e2-8ee60a527f53/t10k-images-idx3-ubyte.gz
-    Extracting file:///Users/kyocum/.disdat/context/examples/objects/fcc264dc-d21b-41f3-81e2-8ee60a527f53/t10k-labels-idx1-ubyte.gz
-    2018-01-23 01:15:50.939566: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.2 AVX AVX2 FMA
-    End training.
-    Begin evaluation . . .
-    Extracting file:///Users/kyocum/.disdat/context/examples/objects/fcc264dc-d21b-41f3-81e2-8ee60a527f53/train-images-idx3-ubyte.gz
-    Extracting file:///Users/kyocum/.disdat/context/examples/objects/fcc264dc-d21b-41f3-81e2-8ee60a527f53/train-labels-idx1-ubyte.gz
-    Extracting file:///Users/kyocum/.disdat/context/examples/objects/fcc264dc-d21b-41f3-81e2-8ee60a527f53/t10k-images-idx3-ubyte.gz
-    Extracting file:///Users/kyocum/.disdat/context/examples/objects/fcc264dc-d21b-41f3-81e2-8ee60a527f53/t10k-labels-idx1-ubyte.gz
-    0.9187
-    End evaluation.
 
-Now you've produced three bundles.   By default ``dsdt ls`` only shows the final bundle, but we can use ``-i`` to list
-intermediate bundles as well.   You can ``cat`` each bundle to see what's inside.  There you'll find all of our output files and
+    [ . . . lots of output . . . ]
+
+    ===== Luigi Execution Summary =====
+    Scheduled 4 tasks of which:
+    * 4 ran successfully:
+        - 1 DriverTask(...)
+        - 1 Evaluate(...)
+        - 1 GetTFDS(...)
+        - 1 Train(...)
+
+    This progress looks :) because there were no failed tasks or missing dependencies
+
+Now you've produced three bundles.   Use ``dsdt ls`` to see our three bundles.  You can ``cat`` each bundle to see what's inside.  There you'll find all of our output files and
 values.
 
-    $ dsdt ls -i
-    MNIST.eval
-    MNIST.data.gz
-    MNIST.trained
-    $ dsdt cat MNIST.eval
-    0.9187
+    $ dsdt ls m.*
+    mnist-evaluation
+    mnist-trained
+    mnist
+    $ dsdt cat mnist-evaluation
+    [0.08208457 0.97430003]
 
 ### Example: Spacy
 

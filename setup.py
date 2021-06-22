@@ -14,6 +14,7 @@ setup(
         , 'pyspark'
         , 'jupyter'
         , 'spacy'
-        , 'tensorflow==1.14.0'
+        , 'tensorflow'
+        , 'tensorflow-datasets'
     ]
 )
