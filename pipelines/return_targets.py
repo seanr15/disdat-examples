@@ -1,5 +1,5 @@
-import disdat.api as api
-from disdat.pipe import PipeTask
+import disdatluigi.api as api
+from disdatluigi.pipe import PipeTask
 import pandas as pd
 
 data_context = 'example-context'
@@ -23,7 +23,7 @@ class ReturnTargets(PipeTask):
         with target.temporary_path() as temp_output_path:
             df.to_csv(temp_output_path)
 
-        return target
+        return target.path
 
 
 if __name__ == '__main__':

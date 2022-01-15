@@ -1,5 +1,5 @@
-import disdat.api as api
-from disdat.pipe import PipeTask
+import disdatluigi.api as api
+from disdatluigi.pipe import PipeTask
 from disdat.utility import aws_s3
 from pyspark.sql import SparkSession
 from pyspark import SparkConf
@@ -24,7 +24,8 @@ def get_spark_session(spark_master, app_name):
     access_key = config.get(aws_profile, "aws_secret_access_key")
     session_token = config.get(aws_profile, "aws_session_token")
 
-    os.environ['PYSPARK_SUBMIT_ARGS'] = "--packages=org.apache.hadoop:hadoop-aws:3.2.0 pyspark-shell"
+    # https://github.com/aws/aws-sdk-java/issues/2510 -- use 3.2.2 
+    os.environ['PYSPARK_SUBMIT_ARGS'] = "--packages=org.apache.hadoop:hadoop-aws:3.2.2 pyspark-shell"
 
     if spark_master is None:
         assert False, "Cannot get Spark session without a valid spark_master, bailing"

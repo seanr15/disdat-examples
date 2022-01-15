@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-from disdat.pipe import PipeTask
-import disdat.api as api
+from disdatluigi.pipe import PipeTask
+import disdatluigi.api as api
 import luigi
 import logging
 import spacy

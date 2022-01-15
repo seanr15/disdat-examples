@@ -1,6 +1,3 @@
-from __future__ import print_function
-#
-# Copyright 2017 Human Longevity, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +16,8 @@ from builtins import range
 
 import keras.models
 import luigi
-from disdat.pipe import PipeTask
-import disdat.api as api
+from disdatluigi.pipe import PipeTask
+import disdatluigi.api as api
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import os
