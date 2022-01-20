@@ -1,5 +1,5 @@
-import disdat.api as api
-from disdat.pipe import PipeTask
+import disdatluigi.api as api
+from disdatluigi.pipe import PipeTask
 
 
 data_context = 'example-context'
